@@ -1,53 +1,29 @@
-import { FC, useState } from "react";
-import { Button } from "./Button";
+import { FC } from "react";
+
+import { StateProps } from "./App";
+import { TodoItems } from "./TodoItems";
 
 interface TodoListComponentProps {
-  todoList: string[];
-  handleDeleteItem(I: number): void;
+  todoList: StateProps[];
+  handleDeleteItem(i: string): void;
+  handleCheck(id: string, completed: boolean): void;
 }
 export const TodoList: FC<TodoListComponentProps> = ({
   todoList,
   handleDeleteItem,
+  handleCheck,
 }) => {
-  const [checkedList, setCheckedList] = useState<string[]>([]);
-
-  const handleCheck = (isTrue: boolean, i: string) => {
-    if (isTrue) {
-      setCheckedList([...checkedList, i]);
-    } else {
-      setCheckedList(checkedList.filter((item) => item !== i));
-    }
-  };
-
   return (
     <ul className="list">
-      {todoList.map((todo: string, i: number) => {
+      {todoList.length === 0 && "No items to show"}
+      {todoList.map((props: StateProps) => {
         return (
-          <li key={i}>
-            <label>
-              <input
-                type="checkbox"
-                onChange={(e) => handleCheck(e.target.checked, String(i))}
-              />
-              {todo}
-            </label>
-            {!checkedList.includes(String(i)) ? (
-              <Button
-                onClick={() => handleDeleteItem(i)}
-                className="btn btn-danger"
-              >
-                Delete
-              </Button>
-            ) : (
-              <Button
-                onClick={() => handleDeleteItem(i)}
-                className="btn.btn-danger-disabled"
-                disabled
-              >
-                Delete
-              </Button>
-            )}
-          </li>
+          <TodoItems
+            {...props}
+            key={props.id}
+            handleDeleteItem={handleDeleteItem}
+            handleCheck={handleCheck}
+          />
         );
       })}
     </ul>

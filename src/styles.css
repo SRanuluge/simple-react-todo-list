@@ -93,11 +93,12 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    justify-content: space-between;
   }
   
   .list li label {
     display: flex;
-    gap: 0.25rem;
+    gap: 0.30rem;
     cursor: pointer;
     align-items: center;
   }

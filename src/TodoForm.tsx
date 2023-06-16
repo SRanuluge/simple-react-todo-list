@@ -1,8 +1,8 @@
 import { FC, ChangeEvent, useState, FormEvent } from "react";
-import { Button } from "./Button";
 
+import { Button } from "./Button";
 interface TodoFormProps {
-  handleOnSubmit(e: string): void;
+  handleOnSubmit(title: string): void;
 }
 
 export const TodoForm: FC<TodoFormProps> = ({ handleOnSubmit }) => {
